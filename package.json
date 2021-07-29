@@ -20,6 +20,7 @@
     "@cypress/code-coverage": "^3.9.9",
     "@cypress/react": "^5.9.2",
     "@cypress/webpack-dev-server": "^1.4.0",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@testing-library/cypress": "^8.0.0",
     "@types/react": "17.0.15",
     "autoprefixer": "^10.3.1",

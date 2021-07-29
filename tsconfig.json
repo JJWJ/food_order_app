@@ -18,6 +18,7 @@
     "preserveConstEnums": true,
     "removeComments": true,
     "strictFunctionTypes": true,
+    "types": ["cypress", "@testing-library/cypress"],
     "strictNullChecks": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
