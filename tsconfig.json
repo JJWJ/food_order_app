@@ -21,5 +21,13 @@
     "strictNullChecks": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".nyc_output",
+    "cypress-coverage",
+    "coverage",
+    "jest-coverage"
+  ]
+
 }

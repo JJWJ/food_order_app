@@ -32,3 +32,13 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# cypress
+cypress/screenshots
+cypress/videos
+
+# coverage
+.nyc_output
+coverage
+cypress-coverage
+jest-coverage
