@@ -6,7 +6,12 @@ describe('Index', () => {
         cy.findByText('OrderMealsFromUs').should('exist');
     })
     it('Should render the HeaderCarButton', () => {
-        cy.visit('/')
         cy.findByRole('button', {name: 'shopping cart'}).should('exist')
+    })
+    it('Should render the meals summary', () => {
+        cy.findByText(/Scrumptious food, with fast delivery/i).should('exist')
+    })
+    it('Should render the available meals', () => {
+        cy.findByTitle(/meals list/i).should('exist')
     })
 })
