@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <React.Fragment>
       <Header />
-      <main>
+      <main className='bg-gray-600'>
         <Meals/>
       </main>
     </React.Fragment>
