@@ -11,7 +11,10 @@ module.exports = {
           '0%': {transform: 'translateY(3rem)'},
           '100%': {transform: 'translateY(0)'},
         }
-      }
+      },
+      boxShadow: {
+        heavy: '0 1px 18px 10px rgba(0, 0, 0, 0.25)',
+      },
     },
   },
   variants: {
