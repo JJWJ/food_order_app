@@ -26,7 +26,10 @@ module.exports = {
         '3/5-vh': '60vh',
         '4/5-vh': '80vh',
         '1/20': '5%',
-        'calcLeft': 'calc(50% -20rem)'
+        'calcLeft': 'calc(50% - 20rem)'
+      },
+      spacing: {
+        '160': '40rem'
       }
     },
   },

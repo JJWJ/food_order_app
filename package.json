@@ -24,6 +24,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@testing-library/cypress": "^8.0.0",
     "@types/react": "17.0.15",
+    "@types/react-dom": "^17.0.9",
     "autoprefixer": "^10.3.1",
     "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^8.1.0",

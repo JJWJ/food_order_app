@@ -1,12 +1,30 @@
-import React from 'react'
+import React, {  useEffect, useRef, useState } from 'react'
+import {createPortal} from 'react-dom'
+import ModalBackdrop from './ModalBackdrop'
+import ModalOverlay from './ModalOverlay';
+
+interface AppProps {
+    selector: string;
+    children: React.ReactNode;
+}
 
 
-const Modal = () => {
-    return (
-        <div>
-            
-        </div>
-    )
+const Modal = (props: AppProps) => {
+    const ref = useRef<Element>();
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        ref.current = document.querySelector(props.selector)!
+        setMounted(true)
+
+    }, [props.selector] )
+
+    return mounted ? (
+        <React.Fragment>
+            {createPortal(<ModalBackdrop/>, ref.current! )}
+            {createPortal(<ModalOverlay>{props.children}</ModalOverlay>, ref.current!)}
+        </React.Fragment>
+    ) : null
 }
 
 export default Modal
