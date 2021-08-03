@@ -11,7 +11,7 @@ const Header = () => {
                 <HeaderCartButton/>
             </header>
             <div className='w-full h-96 z-0 overflow-hidden'>
-                <Image src={foodSpread} alt='Picture of a table with a spread covering all major food groups' className='w-full h-full object-cover transform -rotate-6 -translate-y-16 -translate-x-4'></Image>
+                <Image src={foodSpread} alt='Picture of a table with a spread covering all major food groups' className='w-full h-full object-cover '></Image>
             </div>
         </React.Fragment>
     )
