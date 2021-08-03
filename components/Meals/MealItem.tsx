@@ -1,4 +1,5 @@
 import React from 'react'
+import MealItemForm from './MealItemForm'
 
 interface AppProps {
     id?: string;
@@ -18,7 +19,7 @@ const MealItem = (props:AppProps) => {
                 <div className='mt-1 font-bold text-lg text-yellow-400'>{price}</div>
             </div>
             <div>
-                <hr />
+                <MealItemForm id={props.id || 'G' + Math.floor(Math.random() * 10).toString()}/>
             </div>
         </li>
     )

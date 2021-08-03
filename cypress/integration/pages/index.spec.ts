@@ -14,4 +14,7 @@ describe('Index', () => {
     it('Should render the available meals', () => {
         cy.findByTitle(/meals list/i).should('exist')
     })
+    it('Should render the MealItemForm', () => {
+        cy.findAllByText('Amount').should('exist')
+    })
 })
