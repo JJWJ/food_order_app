@@ -1,7 +1,7 @@
 export {};
 
 describe('Index', () => {
-    it('Should render', () => {
+    it('Should render the app', () => {
         cy.visit('/')
         cy.findByText('OrderMealsFromUs').should('exist');
     })
