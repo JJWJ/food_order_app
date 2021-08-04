@@ -5,28 +5,39 @@ interface AppProps {
     children: React.ReactNode;
 }
 
+type Item = {
+    id?: string | undefined;
+    mealName: string;
+    amount: number;
+    price: number;
+}
+
 interface AppContextInterface {
-    items: {
-        amount: number;
-        price: number;
-    }[];
+    items: Item[];
     totalAmount: number;
-    addItem: (item:any) => void;
-    removeItem: (id:any) => void;
+    addItem: (item:Item) => void;
+    removeItem: (id:string) => void;
 }
 
 type ACTIONTYPE =
-    | {type: 'ADD'; item: any }
-    | {type: 'REMOVE'; item: any }
+    | {type: 'ADD'; item: Item }
+    | {type: 'REMOVE'; id: string }
 
-const defaultCartState = {
-    items: [],
+
+interface IDefaultCartState {
+    items: Array<Item>;
+    totalAmount: number;
+}
+
+const defaultCartState: IDefaultCartState = {
+    items : [],
     totalAmount: 0
 }
 
-const cartReducer = (state: typeof defaultCartState, action: ACTIONTYPE) => {
+const cartReducer = (state: IDefaultCartState  , action: ACTIONTYPE) => {
     if (action.type === 'ADD') {
         const updatedItems = state.items.concat(action.item);
+        // const updatedItems: Array<Item> = [...state.items, action.item]
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
         return {
             items: updatedItems,
@@ -39,12 +50,12 @@ const cartReducer = (state: typeof defaultCartState, action: ACTIONTYPE) => {
 const CartProvider = (props: AppProps) => {
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
 
-    const addItemToCartHandler = item => {
-        dispatchCartAction({type: 'ADD', item: item})
+    const addItemToCartHandler = ( item: Item) => {
+        dispatchCartAction({type: 'ADD', item })
     };
 
-    const removeItemFromCartHandler = item => {
-        dispatchCartAction({type: 'REMOVE', item: item})
+    const removeItemFromCartHandler = ( id: string ) => {
+        dispatchCartAction({type: 'REMOVE', id })
     };
 
     const cartContext: AppContextInterface = {
