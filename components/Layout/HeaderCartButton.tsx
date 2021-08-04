@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {ShoppingCartIcon} from '@heroicons/react/solid'
+import CartContext from '../../store/CartContext'
 
 interface AppProps {
     onClick: () => void
 }
 
 const HeaderCartButton = (props:AppProps) => {
+    const cartCtx = useContext(CartContext);
+
+    const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
+        return curNumber + item.amount;
+    }, 0)
+
     return (
         <React.Fragment>
             {/* Aria-label will take over the button name */}
@@ -13,7 +20,7 @@ const HeaderCartButton = (props:AppProps) => {
             <button aria-label='shopping cart' className='cursor-pointer border-0 bg-yellow-800 text-white py-3 px-12 flex justify-around items-center rounded-3xl font-bold hover:bg-yellow-900' onClick={props.onClick}>
                <span><ShoppingCartIcon className='h-5 w-5 mr-2 '/></span>
                <span>Your Cart</span>
-               <span className='bg-yellow-600 py-1 px-4 rounded-md ml-4 font-bold hover:bg-yellow-900'>3</span>
+               <span className='bg-yellow-600 py-1 px-4 rounded-md ml-4 font-bold hover:bg-yellow-900'>{numberOfCartItems}</span>
             </button> 
         </React.Fragment>
     )
