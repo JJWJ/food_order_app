@@ -4,6 +4,7 @@ import ModalBackdrop from './ModalBackdrop'
 import ModalOverlay from './ModalOverlay';
 
 interface AppProps {
+    onClick: () => void;
     selector: string;
     children: React.ReactNode;
 }
@@ -21,7 +22,7 @@ const Modal = (props: AppProps) => {
 
     return mounted ? (
         <React.Fragment>
-            {createPortal(<ModalBackdrop/>, ref.current! )}
+            {createPortal(<ModalBackdrop onClick={props.onClick}/>, ref.current! )}
             {createPortal(<ModalOverlay>{props.children}</ModalOverlay>, ref.current!)}
         </React.Fragment>
     ) : null

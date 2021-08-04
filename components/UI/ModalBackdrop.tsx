@@ -1,8 +1,12 @@
 import React from 'react'
 
-const ModalBackdrop = () => {
+interface AppProps {
+    onClick: () => void
+}
+
+const ModalBackdrop = (props: AppProps) => {
     return (
-        <div className='fixed top-0 left-0 w-full h-screen z-20 bg-opacity-25 bg-black'>
+        <div title='ModalBackdrop' className='fixed top-0 left-0 w-full h-screen z-20 bg-opacity-25 bg-black' onClick={props.onClick}>
             
         </div>
     )

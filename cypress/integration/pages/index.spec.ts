@@ -17,4 +17,18 @@ describe('Index', () => {
     it('Should render the MealItemForm', () => {
         cy.findAllByText('Amount').should('exist')
     })
+    it('Should open the Modal', () => {
+        cy.findByRole('button', {name: 'shopping cart'}).click()
+        cy.findByRole('button', {name: 'Close'}).should('exist')
+    })
+    it('Should close the Modal', () => {
+        cy.findByRole('button', {name: 'Close'}).click()
+        cy.findByRole('button', {name: 'Close'}).should('not.exist')
+    })
+    it('Should open the Modal and close it from the backdrop', () => {
+        cy.findByRole('button', {name: 'shopping cart'}).click()
+        cy.findByRole('button', {name: 'Close'}).should('exist')
+        cy.findByTitle('ModalBackdrop').click()
+        cy.findByRole('button', {name: 'Close'}).should('not.exist')
+    })
 })
