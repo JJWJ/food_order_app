@@ -16,12 +16,12 @@ interface AppContextInterface {
     items: Item[];
     totalAmount: number;
     addItem: (item:Item) => void;
-    removeItem: (id:string) => void;
+    removeItem: (item:Item) => void;
 }
 
 type ACTIONTYPE =
     | {type: 'ADD'; item: Item }
-    | {type: 'REMOVE'; id: string }
+    | {type: 'REMOVE'; item: Item }
 
 
 interface IDefaultCartState {
@@ -36,14 +36,48 @@ const defaultCartState: IDefaultCartState = {
 
 const cartReducer = (state: IDefaultCartState  , action: ACTIONTYPE) => {
     if (action.type === 'ADD') {
-        const updatedItems = state.items.concat(action.item);
-        // const updatedItems: Array<Item> = [...state.items, action.item]
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
+
+        const existingCartItemIndex = state.items.findIndex((item) => item.id === action.item.id)
+
+        const existingCartItem = state.items[existingCartItemIndex];
+        let updatedItems: Array<Item> | null = [];
+
+        if(existingCartItem) {
+            const updatedItem = {
+                ...existingCartItem,
+                amount: existingCartItem.amount + action.item.amount
+            };
+            updatedItems = [...state.items];
+            updatedItems[existingCartItemIndex] = updatedItem
+        } else {
+            updatedItems = state.items.concat(action.item);
+        }
+
         return {
             items: updatedItems,
             totalAmount: updatedTotalAmount
         }
     }
+
+    if (action.type === 'REMOVE') {
+        const existingCartItemIndex = state.items.findIndex((item) => item.id === action.item.id)
+        const existingItem = state.items[existingCartItemIndex];
+        const updatedTotalAmount = state.totalAmount - existingItem.price;
+        let updatedItems: Array<Item> | null = [];
+        if (existingItem.amount === 1){
+            updatedItems = state.items.filter( item => item.id !== action.item.id)
+        } else {
+            const updatedItem = {...existingItem, amount: existingItem.amount - 1}
+            updatedItems = [...state.items];
+            updatedItems[existingCartItemIndex] = updatedItem
+        }
+        return {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount
+        }
+    }
+
     return defaultCartState;
 }
 
@@ -54,8 +88,8 @@ const CartProvider = (props: AppProps) => {
         dispatchCartAction({type: 'ADD', item })
     };
 
-    const removeItemFromCartHandler = ( id: string ) => {
-        dispatchCartAction({type: 'REMOVE', id })
+    const removeItemFromCartHandler = ( item: Item ) => {
+        dispatchCartAction({type: 'REMOVE', item })
     };
 
     const cartContext: AppContextInterface = {

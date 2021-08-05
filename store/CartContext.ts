@@ -11,7 +11,7 @@ interface AppContextInterface {
     items: Item[];
     totalAmount: number;
     addItem: (item: Item ) => void;
-    removeItem: (id:string) => void;
+    removeItem: (item: Item ) => void;
 }
 
 

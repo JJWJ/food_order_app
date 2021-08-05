@@ -31,4 +31,9 @@ describe('Index', () => {
         cy.findByTitle('ModalBackdrop').click()
         cy.findByRole('button', {name: 'Close'}).should('not.exist')
     })
+    it('Should not show the order button if cart is empty ', () => {
+        cy.findByRole('button', {name: 'shopping cart'}).click()
+        cy.findByRole('button', {name: 'Order'}).should('not.exist')
+        cy.findByTitle('ModalBackdrop').click()
+    })
 })
