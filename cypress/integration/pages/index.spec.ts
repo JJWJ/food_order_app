@@ -36,4 +36,18 @@ describe('Index', () => {
         cy.findByRole('button', {name: 'Order'}).should('not.exist')
         cy.findByTitle('ModalBackdrop').click()
     })
+    it('Should add item to the cart', () => {
+        cy.get('button').contains('+ Add').first().click()
+        cy.findByRole('button', {name: 'shopping cart'}).within(() => {
+            cy.get('span:last').should('contain', '1')
+        });
+    })
+    it('Should remove item from the cart', () => {
+        cy.findByRole('button', {name: 'shopping cart'}).click()
+        cy.findByRole('button', {name: '-'}).click()
+        cy.findByRole('button', {name: 'Close'}).click()
+        cy.findByRole('button', {name: 'shopping cart'}).within(() => {
+            cy.get('span:last').should('contain', '0')
+        });
+    })
 })
