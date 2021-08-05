@@ -27,7 +27,7 @@ const Input = React.forwardRef<Ref, AppProps>((props, ref) => {
     )
 })
 
-// Arrow functions do not have a display name by default and it is needed when using forwardRef
+// Arrow functions display name will be changed to ForwardRef so it must be explicitly set to override this
 Input.displayName = 'Input';
 
 export default Input
