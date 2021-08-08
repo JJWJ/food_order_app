@@ -39,6 +39,7 @@ const AvailableMeals = () => {
           setMeals(loadedMeals);
           setIsLoading(false);
       }
+      // Only way to catch an error from a promise in a useEffect
       fetchMeals().catch((error) => {
         setIsLoading(false)
         setHttpError(error.message)
