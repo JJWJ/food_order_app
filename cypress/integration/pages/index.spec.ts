@@ -5,6 +5,9 @@ describe('Index', () => {
         cy.visit('/')
         cy.findByText('OrderMealsFromUs').should('exist');
     })
+    it('Should show loading state', () => {
+        cy.findByText('Loading...').should('exist');
+    })
     it('Should render the HeaderCarButton', () => {
         cy.findByRole('button', {name: 'shopping cart'}).should('exist')
     })

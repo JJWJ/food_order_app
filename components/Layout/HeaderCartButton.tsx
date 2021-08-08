@@ -20,6 +20,7 @@ const HeaderCartButton = (props:AppProps) => {
 
     useEffect(() => {
         if(items.length === 0){
+            setBtnBounce(false);
             return
         }
         setBtnBounce(true)
