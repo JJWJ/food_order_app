@@ -45,6 +45,17 @@ describe('Index', () => {
             cy.get('span:last').should('contain', '1')
         });
     })
+    it('Should open the checkout modal', () => {
+        cy.findByRole('button', {name: 'shopping cart'}).click()
+        cy.findByRole('button', {name: 'Order'}).click()
+        cy.findByText(/postal code/i).should('exist');
+    })
+    it('Should close the checkout modal', () => {
+        cy.findByRole('button', {name: 'Cancel'}).click()
+        cy.findByRole('button', {name: 'shopping cart'}).within(() => {
+            cy.get('span:last').should('contain', '1')
+        });
+    })
     it('Should remove item from the cart', () => {
         cy.findByRole('button', {name: 'shopping cart'}).click()
         cy.findByRole('button', {name: '-'}).click()

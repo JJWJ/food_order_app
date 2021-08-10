@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import CartContext from '../../store/CartContext'
 import Modal from '../UI/Modal'
 import CartItem from './CartItem';
+import Checkout from './Checkout';
 
 interface AppProps {
     onClose: () => void
@@ -15,6 +16,7 @@ interface Item {
 }
 
 const Cart = (props: AppProps) => {
+    const [isCheckout, setIsCheckout] = useState(false);
     const cartCtx = useContext(CartContext);
 
     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
@@ -34,6 +36,17 @@ const Cart = (props: AppProps) => {
         ))}
     </ul>
 
+    const checkoutHandler = () => {
+        setIsCheckout(true);
+    }
+
+    const modalActions = (
+            <div className='text-right'>
+                <button className='cursor-pointer bg-transparent border border-solid border-red-700 py-2 px-4 rounded-3xl ml-4 text-red-700 hover:bg-red-800 hover:border-red-800 hover:text-white' onClick={props.onClose}>Close</button>
+                {hasItems && <button className='cursor-pointer bg-transparent border border-solid border-red-700 py-2 px-4 rounded-3xl ml-4 text-white bg-red-700 hover:bg-red-800 hover:border-red-800 hover:text-white' onClick={checkoutHandler}>Order</button>}
+            </div>
+    )
+
     return (
         <Modal selector='#overlays' onClick={props.onClose}>
             {cartItems}
@@ -41,10 +54,8 @@ const Cart = (props: AppProps) => {
                 <span>Total Amount</span>
                 <span>{totalAmount}</span>
             </div>
-            <div className='text-right'>
-                <button className='cursor-pointer bg-transparent border border-solid border-red-700 py-2 px-4 rounded-3xl ml-4 text-red-700 hover:bg-red-800 hover:border-red-800 hover:text-white' onClick={props.onClose}>Close</button>
-                {hasItems && <button className='cursor-pointer bg-transparent border border-solid border-red-700 py-2 px-4 rounded-3xl ml-4 text-white bg-red-700 hover:bg-red-800 hover:border-red-800 hover:text-white'>Order</button>}
-            </div>
+            {isCheckout && <Checkout  onCancel={props.onClose} />}
+            {!isCheckout && modalActions}
         </Modal>
     )
 }
