@@ -15,7 +15,7 @@ type Inputs = {
 const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
 const Checkout = (props: AppProps) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     
 
 
