@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface AppProps {
     onCancel: () => void;
-    onConfirm: ({}) => void;
+    onConfirm: ({}: Inputs) => void;
 }
 
 export type Inputs = {
