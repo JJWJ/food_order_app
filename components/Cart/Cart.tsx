@@ -41,7 +41,7 @@ const Cart = (props: AppProps) => {
     }
 
     const submitOrderHandler = (userData: Inputs) => {
-        // Not secure and will not work anyway currently firebase is locked down to read only.
+        // firebase write only not read for meals possibly can change the call though.
         fetch('https://react-food-app-88148-default-rtdb.firebaseio.com/orders.json', {
             method: 'POST',
             body: JSON.stringify({
