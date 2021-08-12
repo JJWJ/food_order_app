@@ -17,6 +17,9 @@ interface Item {
 
 const Cart = (props: AppProps) => {
     const [isCheckout, setIsCheckout] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submittingError, setSubmittingError] = useState(null)
+    const [orderSubmitted, setOrderSubmitted] = useState(false)
     const cartCtx = useContext(CartContext);
 
     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
@@ -30,6 +33,10 @@ const Cart = (props: AppProps) => {
         cartCtx.addItem({...item, amount: 1});
     }
 
+    const clearCartHandler = () => {
+        cartCtx.clearCart()
+    }
+
     const cartItems = <ul className='list-none m-0 p-0 max-h-80 overflow-auto'>
         {cartCtx.items.map((item) => (
             <CartItem key={item.id} mealName={item.mealName} amount={item.amount} price={item.price} onRemove={cartItemRemoveHandler.bind(null, item)} onAdd={cartItemAddHandler.bind(null, item)}/>
@@ -40,15 +47,26 @@ const Cart = (props: AppProps) => {
         setIsCheckout(true);
     }
 
-    const submitOrderHandler = (userData: Inputs) => {
+    const submitOrderHandler = async (userData: Inputs) => {
+        setIsSubmitting(true);
+        try {
         // firebase write only not read for meals possibly can change the call though.
-        fetch('https://react-food-app-88148-default-rtdb.firebaseio.com/orders.json', {
+        const response = await fetch('https://react-food-app-88148-default-rtdb.firebaseio.com/orders.json', {
             method: 'POST',
             body: JSON.stringify({
                 user: userData,
                 orderedItems: cartCtx.items
             })
         })
+        if(!response.ok){
+            throw new Error('Failed to submit cart.')
+        }
+        } catch (error) {
+            setSubmittingError(error.message)
+        }
+        setIsSubmitting(false)
+        setOrderSubmitted(true)
+        clearCartHandler()
     }
 
     const modalActions = (
@@ -58,8 +76,7 @@ const Cart = (props: AppProps) => {
             </div>
     )
 
-    return (
-        <Modal selector='#overlays' onClick={props.onClose}>
+    const cartModalContent = <React.Fragment>
             {cartItems}
             <div className='flex justify-between items-center font-bold text-2xl my-4 mx-0'>
                 <span>Total Amount</span>
@@ -67,6 +84,36 @@ const Cart = (props: AppProps) => {
             </div>
             {isCheckout && <Checkout onConfirm={submitOrderHandler}  onCancel={props.onClose} />}
             {!isCheckout && modalActions}
+    </React.Fragment>
+
+    const isSubmittingModalContent = <React.Fragment>
+      <section className='text-center text-black text-xl flex justify-center items-center'>
+        <span>
+          <svg className='animate-spin mr-4 h-5 w-5' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </span>
+        <p>Submitting your order...</p>
+      </section>
+    </React.Fragment>
+
+    const submittingErrorModalContent = <React.Fragment>
+      <section className='text-center text-red-600 text-4xl font-bold mt-12'>
+        <p>{submittingError}</p>
+      </section>
+    </React.Fragment>
+
+    const orderSubmittedModal = <React.Fragment>
+        <p className='text-center text-xl'>Order successfully submitted</p>
+    </React.Fragment>
+
+    return (
+        <Modal selector='#overlays' onClick={props.onClose}>
+            {!isSubmitting && !submittingError && !orderSubmitted && cartModalContent}
+            {isSubmitting && isSubmittingModalContent}
+            {submittingError && submittingErrorModalContent}
+            {orderSubmitted && orderSubmittedModal}
         </Modal>
     )
 }

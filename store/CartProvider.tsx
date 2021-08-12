@@ -17,11 +17,13 @@ interface AppContextInterface {
     totalAmount: number;
     addItem: (item:Item) => void;
     removeItem: (item:Item) => void;
+    clearCart: () => void;
 }
 
 type ACTIONTYPE =
     | {type: 'ADD'; item: Item }
     | {type: 'REMOVE'; item: Item }
+    | {type: 'CLEAR';}
 
 
 interface IDefaultCartState {
@@ -78,6 +80,10 @@ const cartReducer = (state: IDefaultCartState  , action: ACTIONTYPE) => {
         }
     }
 
+    if (action.type === 'CLEAR') {
+        return defaultCartState;
+    }
+
     return defaultCartState;
 }
 
@@ -92,11 +98,16 @@ const CartProvider = (props: AppProps) => {
         dispatchCartAction({type: 'REMOVE', item })
     };
 
+    const clearCartHandler = () => {
+        dispatchCartAction({type: 'CLEAR'})
+    }
+
     const cartContext: AppContextInterface = {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler,
+        clearCart: clearCartHandler,
     }
 
     return (

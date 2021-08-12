@@ -12,6 +12,7 @@ interface AppContextInterface {
     totalAmount: number;
     addItem: (item: Item ) => void;
     removeItem: (item: Item ) => void;
+    clearCart: () => void;
 }
 
 
@@ -20,6 +21,7 @@ const CartContext = React.createContext<AppContextInterface>({
     totalAmount: 0,
     addItem: () => {},
     removeItem: () => {},
+    clearCart: () => {}
 });
 
 export default CartContext;
