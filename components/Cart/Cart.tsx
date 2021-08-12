@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import CartContext from '../../store/CartContext'
 import Modal from '../UI/Modal'
 import CartItem from './CartItem';
-import Checkout from './Checkout';
+import Checkout, { Inputs } from './Checkout';
 
 interface AppProps {
     onClose: () => void
@@ -40,6 +40,17 @@ const Cart = (props: AppProps) => {
         setIsCheckout(true);
     }
 
+    const submitOrderHandler = (userData: Inputs) => {
+        // Not secure and will not work anyway currently firebase is locked down to read only.
+        fetch('https://react-food-app-88148-default-rtdb.firebaseio.com/orders.json', {
+            method: 'POST',
+            body: JSON.stringify({
+                user: userData,
+                orderedItems: cartCtx.items
+            })
+        })
+    }
+
     const modalActions = (
             <div className='text-right'>
                 <button className='cursor-pointer bg-transparent border border-solid border-red-700 py-2 px-4 rounded-3xl ml-4 text-red-700 hover:bg-red-800 hover:border-red-800 hover:text-white' onClick={props.onClose}>Close</button>
@@ -54,7 +65,7 @@ const Cart = (props: AppProps) => {
                 <span>Total Amount</span>
                 <span>{totalAmount}</span>
             </div>
-            {isCheckout && <Checkout  onCancel={props.onClose} />}
+            {isCheckout && <Checkout onConfirm={submitOrderHandler}  onCancel={props.onClose} />}
             {!isCheckout && modalActions}
         </Modal>
     )

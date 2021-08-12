@@ -3,19 +3,20 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface AppProps {
     onCancel: () => void;
+    onConfirm: ({}) => void;
 }
 
-type Inputs = {
+export type Inputs = {
     name: string;
     street: string;
     postalCode: string; 
     city: string;
 }
 
-const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
 const Checkout = (props: AppProps) => {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = data => props.onConfirm(data);
     
 
 
