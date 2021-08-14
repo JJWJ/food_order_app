@@ -14,7 +14,7 @@
 // the project's config changing)
 
 // @ts-ignore - no @types/@cypress_browserify-preprocessor
-import browserify from '@cypress/browserify-preprocessor';
+import browserify from "@cypress/browserify-preprocessor";
 
 const pluginConfig: Cypress.PluginConfig = (on, config) => {
   // `on` is used to hook into various events Cypress emits
@@ -22,10 +22,10 @@ const pluginConfig: Cypress.PluginConfig = (on, config) => {
 
   const options = browserify.defaultOptions;
   options.browserifyOptions.transform[1][1].babelrc = true;
-  options.typescript = require.resolve('typescript');
+  options.typescript = require.resolve("typescript");
 
-  require('@cypress/code-coverage/task')(on, config);
-  on('file:preprocessor', browserify(options));
+  require("@cypress/code-coverage/task")(on, config);
+  on("file:preprocessor", browserify(options));
 
   return config;
 };
