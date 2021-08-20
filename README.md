@@ -34,6 +34,8 @@ Food Order App is a next.js app using cypress testing. Used as a springboard or 
 
 * React.Js
 
+* React Hook Form
+
 * TailwindCSS
 
 * Typescript
