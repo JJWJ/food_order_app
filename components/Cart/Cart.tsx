@@ -73,7 +73,7 @@ const Cart = (props: AppProps) => {
       if (!response.ok) {
         throw new Error("Failed to submit cart.");
       }
-    } catch (error) {
+    } catch (error: any) {
       setSubmittingError(error.message);
     }
     setIsSubmitting(false);
