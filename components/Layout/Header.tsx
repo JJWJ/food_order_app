@@ -18,7 +18,8 @@ const Header = (props: AppProps) => {
         <Image
           src={foodSpread}
           alt="Picture of a table with a spread covering all major food groups"
-          className="w-full h-full object-cover "
+          className="w-full h-full object-cover"
+          width={3500}
         ></Image>
       </div>
     </React.Fragment>
