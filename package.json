@@ -5,14 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "test": "yarn run cypress open",
+    "test": "npx cypress open",
     "cycov": "open ./cypress-coverage/lcov-report/index.html",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.3",
-    "next": "11.0.1",
+    "next": "^11.1.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.12.2"
@@ -38,7 +38,7 @@
     "tailwindcss": "^2.2.7",
     "typescript": "4.3.5",
     "webpack": "5",
-    "webpack-dev-server": "3"
+    "webpack-dev-server": "^4.12.0"
   },
   "nyc": {
     "extends": "./.nycrc.json",
