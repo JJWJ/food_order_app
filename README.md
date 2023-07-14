@@ -1,17 +1,13 @@
 # Food Order App  
 
-This project was motivated by wanting to learn about testing with Cypress and Typescript. I had used Next.js before and decided to go with its take on the React experience.
+Next.js app with Cypress E2E testing, TailwindCSS, React Hook Form, and Context
 ---
 
 ### Screenshots
 ##### Homepage
 ![FoodOrderApp Homepage](./screenshots/Home.png)
-##### Order
-![ Order ](./screenshots/Multi_item_order.png)
-##### Validation
-![Validation ](./screenshots/Validation.png)
-##### Order Success
-![Order Success ](./screenshots/Order_success.png)
+##### Full Order Flow
+![ Full Order Flow ](./screenshots/Desktop_and_Tablet_Layout_Slim.gif)
 ##### Cypress
 ![ Cypress ](./screenshots/Cypress.png)
 ##### Test Coverage
@@ -40,12 +36,6 @@ This project was motivated by wanting to learn about testing with Cypress and Ty
 * Typescript
 
 * Cypress
-
----
-
-### Working Example 
-
-[Food Order App](https://z-food-order-app.hellojjwj.com)
 
 ---
 
